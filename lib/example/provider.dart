@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:research_rvp/database.dart';
+import 'package:research_rvp/example/database.dart';
 
 final userProvider =
     StateNotifierProvider<AddName, List<String>>((ref) => AddName());
