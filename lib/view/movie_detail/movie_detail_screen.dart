@@ -180,232 +180,237 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Container(
             child: Consumer(builder: (context, watch, _) {
               CastCrew? data = watch(getCaterMovie);
-              Trailer? dataTrailer = watch(getTrailerMovie);
 
-              if (data == null) {
-                return CircularProgressIndicator();
-              }
-              return Container(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Overview',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffff9a6f),
-                      ),
-                    ),
-                    Text('     ${widget.overView}',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white.withOpacity(0.7),
-                          fontStyle: FontStyle.italic,
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        'Cast',
+              if (data != null) {
+                return Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Overview',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Color(0xffff9a6f),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: 10,
-                        left: 15,
-                      ),
-                      height: 100,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: data!.cast!.length,
-                          itemBuilder: (context, index) {
-                            String imageDefault =
-                                'https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg';
-                            String? avatarCaster =
-                                data.cast![index].profile_path;
-                            String? avatarLink =
-                                'https://image.tmdb.org/t/p/original$avatarCaster';
-                            return InkWell(
-                              onTap: () {
-                                // BlocProvider.of<CasterBloc>(context).add(
-                                //     CasterClickEvent(state
-                                //         .castCrew!.cast![index].id
-                                //         .toString()));
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => CasterScreen(
-                                              id: data.cast![index].id
-                                                  .toString(),
-                                            )));
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(right: 15),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 70,
-                                      width: 70,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                              avatarCaster == null
-                                                  ? imageDefault
-                                                  : avatarLink),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      '${data.cast![index].name}',
-                                      style: TextStyle(
-                                          color: Colors.white.withOpacity(0.7)),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        'Crew',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffff9a6f),
+                      Text('     ${widget.overView}',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white.withOpacity(0.7),
+                            fontStyle: FontStyle.italic,
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Cast',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffff9a6f),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
+                      Container(
                         padding: EdgeInsets.only(
                           top: 10,
                           left: 15,
                         ),
                         height: 100,
-                        width: double.infinity,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: data.crew!.length,
+                            itemCount: data.cast!.length,
                             itemBuilder: (context, index) {
                               String imageDefault =
                                   'https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg';
-                              String? avatarCrew =
-                                  data.crew![index].profile_path;
+                              String? avatarCaster =
+                                  data.cast![index].profile_path;
                               String? avatarLink =
-                                  'https://image.tmdb.org/t/p/original$avatarCrew';
-                              return Container(
-                                margin: EdgeInsets.only(right: 15),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 70,
-                                      width: 70,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(avatarCrew == null
-                                              ? imageDefault
-                                              : avatarLink),
+                                  'https://image.tmdb.org/t/p/original$avatarCaster';
+                              return InkWell(
+                                onTap: () {
+                                  // BlocProvider.of<CasterBloc>(context).add(
+                                  //     CasterClickEvent(state
+                                  //         .castCrew!.cast![index].id
+                                  //         .toString()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => CasterScreen(
+                                                id: data.cast![index].id
+                                                    .toString(),
+                                              )));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 15),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                avatarCaster == null
+                                                    ? imageDefault
+                                                    : avatarLink),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      '${data.crew![index].name}',
-                                      style: TextStyle(
-                                          color: Colors.white.withOpacity(0.7)),
-                                    )
-                                  ],
+                                      Text(
+                                        '${data.cast![index].name}',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.7)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
-                            })),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        'Trailer',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffff9a6f),
+                            }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Crew',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffff9a6f),
+                          ),
                         ),
                       ),
-                    ),
-                    // Container(
-                    //   height: 130,
-                    //   child: dataTrailer!.results == null
-                    //       ? Text('nodta')
-                    //       : ListView.builder(
-                    //           scrollDirection: Axis.horizontal,
-                    //           itemCount: dataTrailer.results!.length,
-                    //           itemBuilder: (context, index) {
-                    //             var trailer = dataTrailer.results;
-                    //             var avatarTrailerAPI =
-                    //                 dataTrailer.results![index].key;
-                    //             var avatarTrailerDefaul =
-                    //                 'https://img.youtube.com/vi/0.jpg';
-                    //             var avatarLink =
-                    //                 'https://img.youtube.com/vi/$avatarTrailerAPI/0.jpg';
+                      Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            left: 15,
+                          ),
+                          height: 100,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: data.crew!.length,
+                              itemBuilder: (context, index) {
+                                String imageDefault =
+                                    'https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg';
+                                String? avatarCrew =
+                                    data.crew![index].profile_path;
+                                String? avatarLink =
+                                    'https://image.tmdb.org/t/p/original$avatarCrew';
+                                return Container(
+                                  margin: EdgeInsets.only(right: 15),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                avatarCrew == null
+                                                    ? imageDefault
+                                                    : avatarLink),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '${data.crew![index].name}',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.7)),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              })),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Trailer',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffff9a6f),
+                          ),
+                        ),
+                      ),
+                      Consumer(builder: (context, watch, child) {
+                        Trailer? dataTraler = watch(getTrailerMovie);
 
-                    //             return Padding(
-                    //               padding: const EdgeInsets.only(right: 10),
-                    //               child: InkWell(
-                    //                 onTap: () {
-                    //                   Navigator.push(
-                    //                       context,
-                    //                       MaterialPageRoute(
-                    //                           builder: (_) =>
-                    //                               TrailerDetailSCreen(
-                    //                                 keyYoutube: dataTrailer
-                    //                                     .results![index].key,
-                    //                                 title: widget.title ?? '',
-                    //                               )));
-                    //                 },
-                    //                 child: Stack(
-                    //                   alignment: Alignment.bottomCenter,
-                    //                   children: [
-                    //                     Image.network(
-                    //                       avatarTrailerAPI == null
-                    //                           ? avatarTrailerDefaul
-                    //                           : avatarLink,
-                    //                       fit: BoxFit.fill,
-                    //                     ),
-                    //                     Container(
-                    //                       width: 160,
-                    //                       child: Text(
-                    //                         trailer?[index].name ?? '',
-                    //                         style:
-                    //                             TextStyle(color: Colors.white),
-                    //                         overflow: TextOverflow.ellipsis,
-                    //                       ),
-                    //                     ),
-                    //                     Padding(
-                    //                       padding:
-                    //                           const EdgeInsets.only(bottom: 40),
-                    //                       child: Icon(
-                    //                         Icons.play_arrow,
-                    //                         color: Colors.grey,
-                    //                         size: 50,
-                    //                       ),
-                    //                     ),
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             );
-                    //           },
-                    //         ),
-                    // ),
-                  ],
-                ),
-              );
+                        if (dataTraler == null) {
+                          return CircularProgressIndicator();
+                        }
+                        return Container(
+                          height: 130,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: dataTraler.results!.length,
+                            itemBuilder: (context, index) {
+                              var trailer = dataTraler.results;
+                              var avatarTrailerAPI =
+                                  dataTraler.results![index].key;
+                              var avatarTrailerDefaul =
+                                  'https://img.youtube.com/vi/0.jpg';
+                              var avatarLink =
+                                  'https://img.youtube.com/vi/$avatarTrailerAPI/0.jpg';
+
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => TrailerDetailSCreen(
+                                                  keyYoutube: dataTraler
+                                                      .results![index].key,
+                                                  title: widget.title ?? '',
+                                                )));
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.bottomCenter,
+                                    children: [
+                                      Image.network(
+                                        avatarTrailerAPI == null
+                                            ? avatarTrailerDefaul
+                                            : avatarLink,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      Container(
+                                        width: 160,
+                                        child: Text(
+                                          trailer?[index].name ?? '',
+                                          style: TextStyle(color: Colors.white),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 40),
+                                        child: Icon(
+                                          Icons.play_arrow,
+                                          color: Colors.grey,
+                                          size: 50,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      })
+                    ], //
+                  ),
+                );
+              }
+              return CircularProgressIndicator();
             }),
           ),
         ),
